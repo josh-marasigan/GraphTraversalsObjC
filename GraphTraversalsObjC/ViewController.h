@@ -15,6 +15,11 @@ typedef enum {
     GraphTypeCyclicalGraph
 } GraphType;
 
+typedef NS_ENUM(NSInteger, GraphErrorType) {
+    ErrorCaseInvalidArgument,
+    ErrorCaseInvalidParameters
+};
+
 typedef void(^ToggleColorsBlock)(UIColor* color1, UIColor* color2);
 
 @interface ViewController : UIViewController {

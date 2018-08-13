@@ -134,6 +134,8 @@
 }
 
 - (void) animateBackground {
+    [self executeError];
+    
     toggleColors(UIColor.blueColor, UIColor.redColor);
     
     __weak ViewController * weakSelf = self;
@@ -146,6 +148,26 @@
         [strongSelf->container setBackgroundColor : newColor];
         [strongSelf.view layoutIfNeeded];
     }];
+}
+
+- (void) executeError {
+    NSError * executionError = nil;
+    NSInteger * result = [self throwError: &executionError];
+    if (result == nil) {
+        switch (executionError.code) {
+            case ErrorCaseInvalidArgument:
+                NSLog(@"ErrorCaseInvalidArgument");
+                break;
+            default: break;
+        }
+    }
+}
+
+- (NSInteger *) throwError: (NSError**)error {
+    *error = [NSError errorWithDomain:@"com.joshmarasigan.GraphTraversalsObjC"
+                                code: ErrorCaseInvalidArgument
+                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Oops...", nil)}];
+    return nil;
 }
 
 @end
