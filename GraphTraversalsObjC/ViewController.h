@@ -15,12 +15,14 @@ typedef enum {
     GraphTypeCyclicalGraph
 } GraphType;
 
-typedef void(^ToggleColorsBlock)(UIColor*, UIColor*);
+typedef void(^ToggleColorsBlock)(UIColor* color1, UIColor* color2);
 
 @interface ViewController : UIViewController {
     ToggleColorsBlock toggleColors;
 }
 
+@property (nonatomic, weak) UIView * randomView;
+@property (nonatomic, assign) int randomValue;
 @property (nonatomic, copy) ToggleColorsBlock toggleColors;
 
 @end

@@ -65,9 +65,16 @@
 - (void) initParams {
     container = [self setContainer];
     label = [self setLabel];
+    self.randomValue = 100;
 }
 
 - (void) configUI {
+    [self setToggleColors:^(UIColor *color1, UIColor *color2) {
+        NSLog(@"Color 1");
+        NSLog(@"%@",color1.debugDescription);
+        NSLog(@"Color 2");
+        NSLog(@"%@",color2.debugDescription);
+    }];
     [self configParentViews];
     [self configChildViews];
 }
@@ -90,7 +97,6 @@
 
 - (void) configChildViews {
     UIView * parent = container;
-    
     label.translatesAutoresizingMaskIntoConstraints = NO;
     [label setTextAlignment: NSTextAlignmentCenter];
     
@@ -105,15 +111,31 @@
 
 #pragma mark - Actions
 - (void) onTap {
+    int (^printThis)(void) = ^ int (void) {
+        return self.randomValue;
+    };
+    
+    int (^multiplyBlock)(int, int) = ^ int (int firstVal, int secondVal) {
+        return firstVal * secondVal;
+    };
+    
+    int result = multiplyBlock(7,7);
+    NSLog(@"The result is %d", result);
+    
+    int this = printThis();
+    NSLog(@"This result is %d", this);
+    
     NSLog(@"On Tap");
-    [self traverse: container];
+    [self traverse: container count: 0];
 }
 
-- (void) traverse:(UIView *)view {
+- (void) traverse: (UIView *)view count:(int)count {
     NSLog(@"Traverse Graph");
 }
 
 - (void) animateBackground {
+    toggleColors(UIColor.blueColor, UIColor.redColor);
+    
     __weak ViewController * weakSelf = self;
     [UIView animateWithDuration: 0.75 animations:^{
         if (weakSelf == nil) { return; }
@@ -127,6 +149,3 @@
 }
 
 @end
-
-
-
