@@ -7,17 +7,126 @@
 //
 
 #import "ViewController.h"
+#import "AutoLayout.h"
 
-@interface ViewController ()
+// Category
+@interface ViewController () {
+    UIView * container;
+    UILabel * label;
+}
 
 @end
 
 @implementation ViewController
+@synthesize toggleColors;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+#pragma mark - Lazy Instantiation for instance vars
+- (UIView *)setContainer {
+    UIView * container = [[UIView alloc] initWithFrame:CGRectZero];
+    UITapGestureRecognizer * onTap = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self
+                                      action: @selector(onTap)];
+    
+    UISwipeGestureRecognizer * onSwipe = [[UISwipeGestureRecognizer alloc]
+                                            initWithTarget:self
+                                            action:@selector(animateBackground)
+                                            ];
+    
+    onSwipe.direction = (UISwipeGestureRecognizerDirectionUp |
+                         UISwipeGestureRecognizerDirectionDown |
+                         UISwipeGestureRecognizerDirectionLeft |
+                         UISwipeGestureRecognizerDirectionRight);
+    
+    [container addGestureRecognizer : onTap];
+    [container addGestureRecognizer : onSwipe];
+    
+    container.backgroundColor = UIColor.cyanColor;
+    container.center = self.view.center;
+    return container;
 }
 
+- (UILabel *)setLabel {
+    UILabel * label = [[UILabel alloc] init];
+    label.text = @"Tap to traverse view hierarchy. \n Swipe to change background color.";
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize: 28 weight:UIFontWeightBold];
+    label.textColor = UIColor.whiteColor;
+    return label;
+}
+
+# pragma mark - VC Lifecycle
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initParams];
+    [self configUI];
+}
+
+- (void) initParams {
+    container = [self setContainer];
+    label = [self setLabel];
+}
+
+- (void) configUI {
+    [self configParentViews];
+    [self configChildViews];
+}
+
+#pragma mark - Auto Layout
+- (void) configParentViews {
+    container.translatesAutoresizingMaskIntoConstraints = NO;
+    UIView *subView = container;
+    UIView *parent = self.view;
+    
+    [[self view] addSubview: container];
+    NSLayoutConstraint *top = [AutoLayout makeTopEqual:subView to:parent];
+    NSLayoutConstraint *leading = [AutoLayout makeLeadingEqual:subView to:parent];
+    NSLayoutConstraint *trailing = [AutoLayout makeTrailingEqual:subView to:parent];
+    NSLayoutConstraint *bottom = [AutoLayout makeBottomEqual:subView to:parent];
+    
+    NSArray *constraints = [[NSArray alloc] initWithObjects: top, leading, trailing, bottom, nil];
+    [parent addConstraints:constraints];
+}
+
+- (void) configChildViews {
+    UIView * parent = container;
+    
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [label setTextAlignment: NSTextAlignmentCenter];
+    
+    [parent addSubview: label];
+    NSLayoutConstraint *top = [AutoLayout makeTopEqual:label to:parent];
+    NSLayoutConstraint *leading = [AutoLayout makeLeadingEqual:label to:parent];
+    NSLayoutConstraint *trailing = [AutoLayout makeTrailingEqual:label to:parent];
+    NSLayoutConstraint *bottom = [AutoLayout makeBottomEqual:label to:parent];
+    NSArray *constraints = [[NSArray alloc] initWithObjects: top, leading, trailing, bottom, nil];
+    [parent addConstraints: constraints];
+}
+
+#pragma mark - Actions
+- (void) onTap {
+    NSLog(@"On Tap");
+    [self traverse: container];
+}
+
+- (void) traverse:(UIView *)view {
+    NSLog(@"Traverse Graph");
+}
+
+- (void) animateBackground {
+    __weak ViewController * weakSelf = self;
+    [UIView animateWithDuration: 0.75 animations:^{
+        if (weakSelf == nil) { return; }
+        ViewController * strongSelf = weakSelf;
+        
+        BOOL isGray = strongSelf->container.backgroundColor == UIColor.grayColor;
+        UIColor * newColor = isGray ? UIColor.cyanColor : UIColor.grayColor;
+        [strongSelf->container setBackgroundColor : newColor];
+        [strongSelf.view layoutIfNeeded];
+    }];
+}
 
 @end
+
+
+

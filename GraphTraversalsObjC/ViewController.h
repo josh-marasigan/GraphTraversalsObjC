@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+typedef enum {
+    GraphTypeBinaryTree = 0,
+    GraphTypeMatrix,
+    GraphTypeUnidirectionalGraph,
+    GraphTypeCyclicalGraph
+} GraphType;
 
+typedef void(^ToggleColorsBlock)(UIColor*, UIColor*);
+
+@interface ViewController : UIViewController {
+    ToggleColorsBlock toggleColors;
+}
+
+@property (nonatomic, copy) ToggleColorsBlock toggleColors;
 
 @end
-

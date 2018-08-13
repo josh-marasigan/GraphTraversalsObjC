@@ -13,6 +13,7 @@
 		5CCB3C9F2120A36A002D18B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CCB3C9E2120A36A002D18B4 /* Assets.xcassets */; };
 		5CCB3CA22120A36A002D18B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CCB3CA02120A36A002D18B4 /* LaunchScreen.storyboard */; };
 		5CCB3CA52120A36A002D18B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCB3CA42120A36A002D18B4 /* main.m */; };
+		5CCB3CB12120BD6C002D18B4 /* AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCB3CB02120BD6C002D18B4 /* AutoLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		5CCB3CA12120A36A002D18B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CCB3CA32120A36A002D18B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CCB3CA42120A36A002D18B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5CCB3CAF2120BD6C002D18B4 /* AutoLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoLayout.h; sourceTree = "<group>"; };
+		5CCB3CB02120BD6C002D18B4 /* AutoLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		5CCB3C942120A366002D18B4 /* GraphTraversalsObjC */ = {
 			isa = PBXGroup;
 			children = (
+				5CCB3CB22120BD72002D18B4 /* Auto Layout */,
 				5CCB3C952120A366002D18B4 /* AppDelegate.h */,
 				5CCB3C962120A366002D18B4 /* AppDelegate.m */,
 				5CCB3C982120A366002D18B4 /* ViewController.h */,
@@ -69,6 +73,15 @@
 				5CCB3CA42120A36A002D18B4 /* main.m */,
 			);
 			path = GraphTraversalsObjC;
+			sourceTree = "<group>";
+		};
+		5CCB3CB22120BD72002D18B4 /* Auto Layout */ = {
+			isa = PBXGroup;
+			children = (
+				5CCB3CAF2120BD6C002D18B4 /* AutoLayout.h */,
+				5CCB3CB02120BD6C002D18B4 /* AutoLayout.m */,
+			);
+			path = "Auto Layout";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +156,7 @@
 			files = (
 				5CCB3C9A2120A366002D18B4 /* ViewController.m in Sources */,
 				5CCB3CA52120A36A002D18B4 /* main.m in Sources */,
+				5CCB3CB12120BD6C002D18B4 /* AutoLayout.m in Sources */,
 				5CCB3C972120A366002D18B4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +300,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J85WYWPR94;
 				INFOPLIST_FILE = GraphTraversalsObjC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J85WYWPR94;
 				INFOPLIST_FILE = GraphTraversalsObjC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
